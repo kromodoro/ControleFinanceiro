@@ -1,11 +1,7 @@
 <?php  
-	require_once "Gastos.php";
-	require_once "Recursos.php";
-class Consumir
+	require_once "../Config/DB.php";
+class AppController
 {
-	// Atributos
-	protected $gastos;
-	protected $recursos;
 
 	// Método especiais
 	public function __construct($gastos, $recursos)
@@ -31,6 +27,18 @@ class Consumir
 
 	public function debitarDinheiro(){
 		$this->getRecursos()->setDinheiro($this->getRecursos()->getDinheiro() - $this->getGastos()->getPreco());
+	}
+
+	public function salvar()
+	{
+		$nome = $this->getGastos()->getNome();
+		$categoria = $this->getGastos()->getCategoria();
+		$quantidade = $this->getGastos()->getQuantidade();
+		$pagamento = $this->getGastos()->getPagamento();
+		$preco = $this->getGastos()->getPreco();
+		$tipo = $this->getGastos()->getTipo();
+		$created = $this->getGastos()->getCreated();
+		//$pdo->query("INSERT INTO gastos (nome, categoria, quantidade, pagamento, preco, tipo, created) VALUES ()");
 	}
 }
 ?>

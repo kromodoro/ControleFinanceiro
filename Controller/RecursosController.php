@@ -1,5 +1,6 @@
 <?php  
-class Recursos
+	require_once "AppController.php";
+class Recursos extends AppController
 {
 	// Atributos
 	protected $banco;

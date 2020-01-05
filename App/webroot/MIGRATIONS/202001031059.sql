@@ -1,0 +1,1 @@
+create DATABASE controleFinanceiro default CHARACTER set utf8 DEFAULT COLLATE utf8_general_ci

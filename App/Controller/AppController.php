@@ -38,7 +38,9 @@ class AppController
 		$preco = $this->getGastos()->getPreco();
 		$tipo = $this->getGastos()->getTipo();
 		$created = $this->getGastos()->getCreated();
-		//$pdo->query("INSERT INTO gastos (nome, categoria, quantidade, pagamento, preco, tipo, created) VALUES ()");
+
+		//echo "$nome > $categoria > $quantidade > $pagamento > $preco > $tipo > $created";
+		$pdo->query("INSERT INTO gastos (nome, categoria, quantidade, pagamento, preco, tipo, created) VALUES ($nome, $categoria, $quantidade, $pagamento, $preco, $tipo, $created)");
 	}
 }
 ?>

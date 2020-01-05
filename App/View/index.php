@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Módulo Financeiro</title>
-	<link rel="stylesheet" href="_css/bootstrap.min.css">
+	<link rel="stylesheet" href="../webroot/_css/bootstrap.min.css">
 </head>
 <body style="background-color: #777;">
 	<div class="container">
@@ -28,10 +28,11 @@
 								<input type="number" min="1" name="quantidade" required>
 							</div>
 							<div class="form-group">
-								<label for="meioP">Pagamento</label>
-								<select name="meioP" id="meioP">
+								<label for="pagamento">Pagamento</label>
+								<select name="pagamento" id="pagamento">
 									<option value="cartao">Cartao</option>
 									<option value="dinheiro">Dinheiro</option>
+									<option value="vr">Vale refeição</option>
 								</select>
 								<label for="preco">Preço R$</label>
 								<input type="number" step=".01" name="preco" required>
@@ -61,15 +62,13 @@
 						ini_set('display_startup_errors',1);
 						error_reporting(E_ALL);
 
-						require_once "Gastos.php";
-						require_once "Recursos.php";
-						require_once "Consumir.php";
+						require_once "../../vendor/autoload.php";
 
 						# Gastos via URL
 						$nome = ($_GET['nome']) ?? '';
 						$categoria = ($_GET['categoria']) ?? '';
 						$quantidade = ($_GET['quantidade']) ?? '';
-						$meioP = ($_GET['meioP']) ?? '';
+						$pagamento = ($_GET['pagamento']) ?? '';
 						$preco = ($_GET['preco']) ?? '';
 						$tipo = ($_GET['tipo']) ?? '';
 						$created = ($_GET['created']) ?? '';
@@ -81,24 +80,50 @@
 						$valorCartao = ($_GET['valorCartao']) ?? 277;
 						$dinheiro = ($_GET['dinheiro']) ?? 600;
 
-						$gastos = new Gastos($nome, $categoria, $preco, $quantidade, $tipo, $created);
-						$recursos = new Recursos($banco, $valorBanco, $cartao, $valorCartao,$dinheiro);
-						$consumir = new Consumir($gastos, $recursos);
-						echo "<pre style='color: #fff'>";
-						//print_r($gastos);
-						//print_r($recursos);
-						switch($meioP)
-						{
-							case "cartao":
-								$consumir->debitarCartao();
-							break;
-							case "dinheiro":
-								$consumir->debitarDinheiro();
-							break;
+						$gastos = new \App\Model\Gastos();
+						$gastosDao = new \App\Model\GastosDao();
+
+						$gastos->setNome($nome);
+						$gastos->setCategoria($categoria);
+						$gastos->setQuantidade($quantidade);
+						$gastos->setPagamento($pagamento);
+						$gastos->setPreco($preco);
+						$gastos->setTipo($tipo);
+						$gastos->setCreated($created);
+
+						$gastosDao->create($gastos);
+
+						$gastosDao->read();
+						$gastosDao->readTotal();
+						$gastosDao->readComida();
+						$gastosDao->readCoisas();
+						$gastosDao->readCirc();
+
+						echo "<pre>";
+						foreach ($gastosDao->read() as $resultado) {
+							print_r($resultado);
 						}
-						//$consumir->debitarBanco();
-						print_r($consumir);
+						/*foreach ($gastosDao->readTotal() as $resultado) {
+							print_r($resultado);
+						}*/
+						foreach ($gastosDao->readComida() as $resultado) {
+							echo "COMIDA : ";
+							print_r($resultado);
+						}
+
+						foreach ($gastosDao->readCoisas() as $resultado) {
+							echo "COISAS : ";
+							print_r($resultado);
+						}
+
+						foreach ($gastosDao->readCirc() as $resultado) {
+							echo "Circunstâncias : ";
+							print_r($resultado);
+						}
 						echo "</pre>";
+						
+
+
 					?>
 				</div>
 				<!--div class="col">

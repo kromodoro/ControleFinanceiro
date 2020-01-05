@@ -1,0 +1,1 @@
+create table gastos ( id int not null AUTO_INCREMENT, nome varchar(100), categoria varchar (20), quantidade int, pagamento varchar(50), preco decimal(10,2), tipo varchar(10), created date, primary key(id) )default charset = utf8

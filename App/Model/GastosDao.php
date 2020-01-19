@@ -66,22 +66,6 @@ class GastosDao
 		endif;
 	}
 
-	public function readComidaMensal()
-	{
-		$sql = "SELECT sum(preco) FROM gastos WHERE categoria = 'comida' AND created >= '2019-04-05' AND created <= '2019-05-05'";
-
-		$stmt = Conexao::getConn()->prepare($sql);
-
-		$stmt->execute();
-
-		if($stmt->rowCount() > 0):
-			$resultado = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-			return $resultado;
-		else:
-			return [];
-		endif;
-	}
-
 	public function readCoisas()
 	{
 		$sql = "SELECT * FROM gastos WHERE categoria = 'coisas'";
@@ -98,41 +82,10 @@ class GastosDao
 		endif;
 	}
 
-	public function readCoisasMensal()
-	{
-		$sql = "SELECT sum(preco) FROM gastos WHERE categoria = 'coisas' AND created >= '2019-08-05' AND created <= '2019-09-05'";
-
-		$stmt = Conexao::getConn()->prepare($sql);
-
-		$stmt->execute();
-
-		if($stmt->rowCount() > 0):
-			$resultado = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-			return $resultado;
-		else:
-			return [];
-		endif;
-	}
 
 	public function readCirc()
 	{
 		$sql = "SELECT sum(preco) FROM gastos WHERE categoria = 'circunstâncias'";
-
-		$stmt = Conexao::getConn()->prepare($sql);
-
-		$stmt->execute();
-
-		if($stmt->rowCount() > 0):
-			$resultado = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-			return $resultado;
-		else:
-			return [];
-		endif;
-	}
-
-	public function readCircMensal()
-	{
-		$sql = "SELECT sum(preco) FROM gastos WHERE categoria = 'circunstâncias' AND created >= '2019-12-05' AND created <= '2020-01-05'";
 
 		$stmt = Conexao::getConn()->prepare($sql);
 

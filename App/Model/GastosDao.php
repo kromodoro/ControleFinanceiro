@@ -84,7 +84,7 @@ class GastosDao
 
 	public function readCoisas()
 	{
-		$sql = "SELECT sum(preco) FROM gastos WHERE categoria = 'coisas'";
+		$sql = "SELECT * FROM gastos WHERE categoria = 'coisas'";
 
 		$stmt = Conexao::getConn()->prepare($sql);
 

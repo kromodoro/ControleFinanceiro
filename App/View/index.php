@@ -58,12 +58,12 @@
 					        height: 400
 					      };
 
-					      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+					      var chart = new google.visualization.LineChart(document.getElementById('chart_2019'));
 
 					      chart.draw(data, options);
 					    }
 			    </script>
-				<div id="chart_div" class="mt-5"></div>
+				<div id="chart_2019" class="mt-5"></div>
 			</div>
 		</div>
 	</div>

@@ -1,8 +1,9 @@
+<?php  require_once "../Config/debug.php";?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
 	<meta charset="UTF-8">
-	<title>Módulo Financeiro</title>
+	<title>Cadastro de despesas</title>
 	<link rel="stylesheet" href="../webroot/_css/bootstrap.min.css">
 </head>
 <body style="background-color: #777;">
@@ -57,11 +58,7 @@
 					</div>
 				</div>
 			<div class="col">
-					<?php  
-						ini_set('display_errors',1);
-						ini_set('display_startup_errors',1);
-						error_reporting(E_ALL);
-
+					<?php 
 						require_once "../../vendor/autoload.php";
 
 						# Gastos via URL
@@ -98,32 +95,10 @@
 						$gastosDao->readComida();
 						$gastosDao->readCoisas();
 						$gastosDao->readCirc();
-						
-
-						echo "<pre>";
-						foreach ($gastosDao->read() as $resultado) {
-							print_r($resultado);
-						}
-						foreach ($gastosDao->readComida() as $resultado) {
-							echo "COMIDA : ";
-							print_r($resultado);
-						}
-
-						foreach ($gastosDao->readCoisas() as $resultado) {
-							echo "COISAS : ";
-							print_r($resultado);
-						}
-
-						foreach ($gastosDao->readCirc() as $resultado) {
-							echo "Circunstâncias : ";
-							print_r($resultado);
-						}
-						echo "</pre>";
-						echo "TOTAL :";
-						foreach ($gastosDao->readTotal() as $resultado) {
-							print_r($resultado);
-						}
 					?>
+					<pre>
+						<?php  print_r($gastosDao->read());?>
+					</pre>
 				</div>
 			</div>
 	</div>
